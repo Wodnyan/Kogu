@@ -1,0 +1,44 @@
+<main
+  [formGroup]="userCreds"
+  class="h-full flex items-center justify-center flex-col"
+>
+  <h1 class="text-4xl">Create an account</h1>
+  <form (submit)="onSubmit()" class="w-full md:w-1/2 lg:w-2/6 px-4">
+    <div class="full">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        type="text"
+        class="form-input px-2 py-2 w-full rounded block"
+        formControlName="name"
+      />
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        class="form-input px-2 py-2 rounded w-full block"
+        formControlName="email"
+      />
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        class="form-input px-2 py-2 rounded w-full block"
+        formControlName="password"
+      />
+    </div>
+    <div class="mt-2 flex items-center justify-between">
+      <app-button>Hello world</app-button>
+      <a href="" class="text-blue-500">Forgot password?</a>
+    </div>
+  </form>
+
+  <div class="text-xl">
+    <span class="mr-1">Already have an account?</span>
+    <a routerLink="/auth/login" class="text-blue-500">Log in!</a>
+  </div>
+</main>
