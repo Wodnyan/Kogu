@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :authorize_request, only: %i[create show]
+  skip_before_action :authorize_request, only: %i[create show index]
   before_action :set_article, only: %i[show update destroy]
 
   def index
