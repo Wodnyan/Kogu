@@ -1,4 +1,5 @@
 import { NgModule } from "@angular/core";
+import { HttpClientModule } from "@angular/common/http";
 import { BrowserModule } from "@angular/platform-browser";
 
 import { AppRoutingModule } from "./app-routing.module";
@@ -7,7 +8,7 @@ import { HomeComponent } from "./views/home/home.component";
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
 import { ReactiveFormsModule } from "@angular/forms";
-import { ButtonComponent } from './components/button/button.component';
+import { ButtonComponent } from "./components/button/button.component";
 
 @NgModule({
   declarations: [
@@ -17,7 +18,12 @@ import { ButtonComponent } from './components/button/button.component';
     RegisterComponent,
     ButtonComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
