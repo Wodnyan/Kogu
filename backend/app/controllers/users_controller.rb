@@ -15,6 +15,10 @@ class UsersController < ApplicationController
     json_response(article, :ok)
   end
 
+  def me
+    json_response(current_user)
+  end
+
   private
 
   def user_params
