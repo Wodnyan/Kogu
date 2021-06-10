@@ -4,3 +4,11 @@
   <span class="text-gray-700"> Welcome </span>
   <span>{{ user?.name | uppercase }}</span>
 </h1>
+
+<main>
+  <ul>
+    <li *ngFor="let article of articles">
+      <h1>Title: {{ article.title }}</h1>
+    </li>
+  </ul>
+</main>

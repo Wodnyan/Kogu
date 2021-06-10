@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { ArticlesService } from "src/app/services/articles/articles.service";
 import { AuthService } from "src/app/services/auth/auth.service";
-import { User } from "src/types";
+import { Article, User } from "src/types";
 
 @Component({
   selector: "app-home",
@@ -9,7 +10,11 @@ import { User } from "src/types";
 })
 export class HomeComponent implements OnInit {
   user: User | null = null;
-  constructor(private authService: AuthService) {}
+  articles: Article[] | [] = [];
+  constructor(
+    private authService: AuthService,
+    private articleService: ArticlesService,
+  ) {}
 
   ngOnInit(): void {
     this.authService.me().subscribe((resp) => {
@@ -20,6 +25,9 @@ export class HomeComponent implements OnInit {
           updatedAt: resp.updated_at,
         };
       }
+    });
+    this.articleService.fetchAllArticles().subscribe((resp) => {
+      this.articles = resp;
     });
   }
 }
