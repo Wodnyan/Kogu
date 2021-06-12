@@ -11,4 +11,7 @@ export type Article = {
   text: string;
   title: string;
   description: string;
+  createdAt: string;
+  updatedAt: string;
+  author: User;
 };

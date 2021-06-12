@@ -1,0 +1,18 @@
+<article class="shadow-md p-4 hover:shadow-inner">
+  <h2 class="text-gray-500">
+    {{ article?.author?.name }}
+  </h2>
+  <a
+    [routerLink]="articleRoute"
+    class="text-4xl hover:text-blue-800 cursor-pointer"
+  >
+    {{ article?.title }}
+  </a>
+  <p>
+    {{ article?.description }}
+  </p>
+  <div>
+    {{ article?.createdAt | date }}
+  </div>
+  <app-button>Open</app-button>
+</article>

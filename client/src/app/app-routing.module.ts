@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { ArticlesComponent } from "./views/articles/articles.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
 import { HomeComponent } from "./views/home/home.component";
 
@@ -16,6 +17,10 @@ const routes: Routes = [
         component: RegisterComponent,
       },
     ],
+  },
+  {
+    path: "articles/:articleId",
+    component: ArticlesComponent,
   },
 ];
 
