@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_action :authorize_request, only: %i[create articles]
+  skip_before_action :authorize_request, only: %i[create]
 
   # Sign up
   def create
@@ -7,12 +7,6 @@ class UsersController < ApplicationController
     auth_token = AuthenticateUser.new(user.email, user.password).call
     response = { message: Message.account_created, auth_token: auth_token }
     json_response(response, :created)
-  end
-
-  # Get all articles of a user
-  def articles
-    article = Article.where("user_id = #{params[:user_id]}")
-    json_response(article, :ok)
   end
 
   def me

@@ -6,6 +6,5 @@ Rails.application.routes.draw do
 
   get 'me', to: 'users#me'
 
-  get 'users/:user_id/articles', to: 'users#articles'
-  # get 'users/:user_id', to: ''
+  get 'users/:user_id/articles', to: 'articles#user_articles'
 end

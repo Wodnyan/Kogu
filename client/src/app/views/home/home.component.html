@@ -6,9 +6,9 @@
 </h1>
 
 <main>
-  <ul>
-    <li *ngFor="let article of articles">
-      <h1>Title: {{ article.title }}</h1>
+  <ul class="max-w-screen-md mx-auto">
+    <li *ngFor="let article of articles" class="mb-4">
+      <app-article-card [article]="article"></app-article-card>
     </li>
   </ul>
 </main>

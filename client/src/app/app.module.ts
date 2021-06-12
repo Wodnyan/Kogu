@@ -9,6 +9,8 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
 import { RegisterComponent } from "./views/auth/register/register.component";
 import { ReactiveFormsModule } from "@angular/forms";
 import { ButtonComponent } from "./components/button/button.component";
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { ArticlesComponent } from './views/articles/articles.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { ButtonComponent } from "./components/button/button.component";
     NavBarComponent,
     RegisterComponent,
     ButtonComponent,
+    ArticleCardComponent,
+    ArticlesComponent,
   ],
   imports: [
     BrowserModule,
