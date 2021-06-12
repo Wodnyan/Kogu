@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   skip_before_action :authorize_request, only: %i[show index user_articles]
-  before_action :set_article, only: %i[show update destroy]
+  before_action :set_article, only: %i[update destroy]
 
   def index
     articles = Article.joins(:user).select(select)
@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
 
   # Get all articles of a user
   def user_articles
-    articles = Article.where("user_id = #{params[:user_id]}").joins(:user).select(select)
+    articles = Article.where('user_id = ?', params[:user_id]).joins(:user).select(select)
 
     mapped_articles = []
 
@@ -36,7 +36,14 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    json_response(@article)
+    article = Article.where('articles.id = ?', params[:id]).joins(:user).select(select).first
+    if !article
+      json_response({
+                      message: 'Not found'
+                    }, :not_found)
+    else
+      json_response(structure_article(article))
+    end
   end
 
   def destroy
