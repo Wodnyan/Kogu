@@ -1,8 +1,11 @@
 <app-nav-bar></app-nav-bar>
 
 <h1 class="text-4xl text-center">
-  <span class="text-gray-700"> Welcome </span>
-  <span>{{ user?.name | uppercase }}</span>
+  <div *ngIf="isAuthenticated(); else unAuthenticated">
+    <span class="text-gray-700"> Welcome </span>
+    <span>{{ user?.name | uppercase }}</span>
+  </div>
+  <ng-template #unAuthenticated>Welcome to Kogu</ng-template>
 </h1>
 
 <main>

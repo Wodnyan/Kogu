@@ -16,4 +16,8 @@ export class ArticleCardComponent implements OnInit {
   get articleRoute(): string {
     return `/articles/${this.article?.id}`;
   }
+
+  get userRoute(): string {
+    return `/users/${this.article?.author.id}`;
+  }
 }

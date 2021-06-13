@@ -11,10 +11,13 @@ export class ArticlesService {
 
   fetchAllArticlesOfUser(userId: number) {
     const headers = new HttpHeaders().set("Authorization", this.bearerToken);
-    return this.http.get(`${API_ENDPOINT_URL}/users/${userId}/articles`, {
-      withCredentials: true,
-      headers,
-    });
+    return this.http.get<Article[] | []>(
+      `${API_ENDPOINT_URL}/users/${userId}/articles`,
+      {
+        withCredentials: true,
+        headers,
+      },
+    );
   }
 
   fetchAllArticles() {
