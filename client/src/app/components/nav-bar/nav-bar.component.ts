@@ -12,7 +12,6 @@ export class NavBarComponent implements OnInit {
   user?: User;
   constructor(authService: AuthService) {
     authService.me().subscribe((res) => {
-      console.log(res);
       if (res.id) {
         this.user = {
           ...res,
