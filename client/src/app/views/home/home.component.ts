@@ -30,4 +30,8 @@ export class HomeComponent implements OnInit {
       this.articles = resp;
     });
   }
+
+  isAuthenticated() {
+    return Boolean(this.user?.id);
+  }
 }

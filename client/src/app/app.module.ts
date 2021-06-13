@@ -11,6 +11,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { ButtonComponent } from "./components/button/button.component";
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { ArticlesComponent } from './views/articles/articles.component';
+import { UserPageComponent } from './views/user-page/user-page.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ArticlesComponent } from './views/articles/articles.component';
     ButtonComponent,
     ArticleCardComponent,
     ArticlesComponent,
+    UserPageComponent,
   ],
   imports: [
     BrowserModule,

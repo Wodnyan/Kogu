@@ -1,7 +1,7 @@
 <article class="shadow-md p-4 hover:shadow-inner">
-  <h2 class="text-gray-500">
+  <a [routerLink]="userRoute" class="block text-gray-500 hover:text-gray-400">
     {{ article?.author?.name }}
-  </h2>
+  </a>
   <a
     [routerLink]="articleRoute"
     class="text-4xl hover:text-blue-800 cursor-pointer"
