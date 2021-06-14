@@ -19,16 +19,16 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authService.me().subscribe((resp) => {
       if (resp["id"]) {
-        this.user = {
-          ...resp,
-          createdAt: resp.created_at,
-          updatedAt: resp.updated_at,
-        };
+        this.user = resp;
       }
     });
     this.articleService.fetchAllArticles().subscribe((resp) => {
       this.articles = resp;
     });
+  }
+
+  prependArticle(article: Article) {
+    this.articles = [article, ...this.articles];
   }
 
   isAuthenticated() {

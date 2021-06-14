@@ -12,6 +12,7 @@ import { ButtonComponent } from "./components/button/button.component";
 import { ArticleCardComponent } from './components/article-card/article-card.component';
 import { ArticlesComponent } from './views/articles/articles.component';
 import { UserPageComponent } from './views/user-page/user-page.component';
+import { CreateArticlePopupComponent } from './components/create-article-popup/create-article-popup.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { UserPageComponent } from './views/user-page/user-page.component';
     ArticleCardComponent,
     ArticlesComponent,
     UserPageComponent,
+    CreateArticlePopupComponent,
   ],
   imports: [
     BrowserModule,

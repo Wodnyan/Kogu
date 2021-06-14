@@ -2,8 +2,10 @@ class ArticlesController < ApplicationController
   skip_before_action :authorize_request, only: %i[show index user_articles]
   before_action :set_article, only: %i[update destroy show]
 
+  # TODO: PAGINATION, ORDERING
+
   def index
-    articles = Article.joins(:user).select(select)
+    articles = Article.joins(:user).order('articles.id DESC').select(select)
     mapped_articles = []
 
     articles.each do |article|

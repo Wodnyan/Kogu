@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar (newArticleEvent)="prependArticle($event)"></app-nav-bar>
 
 <h1 class="text-4xl text-center">
   <div *ngIf="isAuthenticated(); else unAuthenticated">
