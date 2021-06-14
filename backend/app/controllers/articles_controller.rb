@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
   skip_before_action :authorize_request, only: %i[show index user_articles]
-  before_action :set_article, only: %i[update destroy]
+  before_action :set_article, only: %i[update destroy show]
 
   def index
     articles = Article.joins(:user).select(select)
@@ -31,18 +31,19 @@ class ArticlesController < ApplicationController
   def create
     article_info = { title: article_params[:title], description: article_params[:description],
                      text: article_params[:text], user_id: current_user[:id] }
-    @article = Article.create!(article_info)
-    json_response(@article, :created)
+    createdArticle = Article.create!(article_info)
+    @article = Article.where('articles.id = ?', createdArticle[:id]).joins(:user).select(select).first
+
+    json_response(structure_article(@article), :created)
   end
 
   def show
-    article = Article.where('articles.id = ?', params[:id]).joins(:user).select(select).first
-    if !article
+    if !@article
       json_response({
                       message: 'Not found'
                     }, :not_found)
     else
-      json_response(structure_article(article))
+      json_response(structure_article(@article))
     end
   end
 
@@ -54,7 +55,7 @@ class ArticlesController < ApplicationController
   private
 
   def set_article
-    @article = Article.find(params[:id])
+    @article = Article.where('articles.id = ?', params[:id]).joins(:user).select(select).first
   end
 
   def article_params
@@ -67,17 +68,20 @@ class ArticlesController < ApplicationController
       title: article[:title],
       description: article[:description],
       text: article[:text],
-      updatedAt: article[:updated_at],
-      createdAt: article[:created_at],
+      updatedAt: article[:updatedAt],
+      createdAt: article[:createdAt],
       author: {
         id: article[:user_id],
         name: article[:name],
-        email: article[:email]
+        email: article[:email],
+        createdAt: article[:userCreatedAt],
+        updatedAt: article[:userUpdatedAt]
       }
     }
   end
 
   def select
-    %w[id title description text created_at updated_at name user_id email]
+    ['articles.id', 'title', 'description', 'text', 'articles.created_at as createdAt', 'articles.updated_at as updatedAt',
+     'name', 'user_id', 'email', 'users.created_at as userCreatedAt', 'users.updated_at as userUpdatedAt']
   end
 end
