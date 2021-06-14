@@ -29,8 +29,8 @@ export class AuthService {
       id: number;
       name: string;
       email: string;
-      updated_at: string;
-      created_at: string;
+      updatedAt: string;
+      createdAt: string;
     }>(this.meEndpoint, {
       withCredentials: true,
       headers: headers,

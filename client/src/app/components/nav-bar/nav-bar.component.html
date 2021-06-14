@@ -9,7 +9,10 @@
   <div class="ml-auto">
     <!-- AUTHENTICATED USER -->
     <div *ngIf="user?.id; else unauthenticated">
-      <button class="hover:bg-gray-100 text-blue-700 px-3 py-2 rounded">
+      <button
+        (click)="toggleShowCreateArticlePopup()"
+        class="hover:bg-gray-100 text-blue-700 px-3 py-2 rounded"
+      >
         Create Article
       </button>
       <a
@@ -17,6 +20,11 @@
         [routerLink]="userPath"
         >My Account</a
       >
+      <app-create-article-popup
+        *ngIf="showCreateArticlePopup"
+        (closePopupEvent)="toggleShowCreateArticlePopup()"
+        (newArticleEvent)="newArticle($event)"
+      ></app-create-article-popup>
     </div>
     <!-- UNAUTHENTICATED USER -->
     <ng-template #unauthenticated>
@@ -27,15 +35,7 @@
           >Log in</a
         >
         <a
-          class="
-            ml-2
-            px-3
-            py-2
-            rounded
-            bg-blue-700
-            hover:bg-blue-800
-            text-white
-          "
+          class="ml-2 px-3 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white"
           routerLink="/auth/register"
           >Create account</a
         >

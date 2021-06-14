@@ -1,7 +1,6 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { AuthService } from "src/app/services/auth/auth.service";
-import { API_ENDPOINT_URL } from "src/constants";
-import { User } from "src/types";
+import { Article, User } from "src/types";
 
 @Component({
   selector: "app-nav-bar",
@@ -9,16 +8,14 @@ import { User } from "src/types";
   styleUrls: ["./nav-bar.component.scss"],
 })
 export class NavBarComponent implements OnInit {
+  @Output() newArticleEvent = new EventEmitter<Article>();
   user?: User;
+  showCreateArticlePopup = false;
+
   constructor(authService: AuthService) {
     authService.me().subscribe((res) => {
-      console.log(res);
       if (res.id) {
-        this.user = {
-          ...res,
-          createdAt: res.created_at,
-          updatedAt: res.updated_at,
-        };
+        this.user = res;
       }
     });
   }
@@ -27,5 +24,13 @@ export class NavBarComponent implements OnInit {
 
   get userPath() {
     return `users/${this.user?.id}`;
+  }
+
+  newArticle(article: Article) {
+    this.newArticleEvent.emit(article);
+  }
+
+  toggleShowCreateArticlePopup() {
+    this.showCreateArticlePopup = !this.showCreateArticlePopup;
   }
 }

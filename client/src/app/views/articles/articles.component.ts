@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ArticlesService } from "src/app/services/articles/articles.service";
+import { Article } from "src/types";
 
 @Component({
   selector: "app-articles",
@@ -9,6 +10,7 @@ import { ArticlesService } from "src/app/services/articles/articles.service";
 })
 export class ArticlesComponent implements OnInit {
   articleId: number;
+  article?: Article;
 
   constructor(
     activeRoute: ActivatedRoute,
@@ -19,7 +21,7 @@ export class ArticlesComponent implements OnInit {
 
   ngOnInit(): void {
     this.articlesService.fetchOneArticle(this.articleId).subscribe((res) => {
-      console.log(res);
+      this.article = res;
     });
   }
 }

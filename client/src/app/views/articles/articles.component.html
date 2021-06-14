@@ -1,2 +1,10 @@
-<p>articles works!</p>
-{{ articleId }}
+<app-nav-bar></app-nav-bar>
+<div class="mx-auto mt-4 max-w-screen-md">
+  <div class="user">
+    <h1>{{ article?.author?.name }}</h1>
+  </div>
+
+  <h1>{{ article?.title }}</h1>
+  <h2>{{ article?.description }}</h2>
+  <p>{{ article?.text }}</p>
+</div>
