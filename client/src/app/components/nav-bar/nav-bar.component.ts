@@ -23,7 +23,7 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {}
 
   get userPath() {
-    return `users/${this.user?.id}`;
+    return `/users/${this.user?.id}`;
   }
 
   newArticle(article: Article) {
