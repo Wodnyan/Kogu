@@ -13,9 +13,9 @@ export class NavBarComponent implements OnInit {
   showCreateArticlePopup = false;
 
   constructor(authService: AuthService) {
-    authService.me().subscribe((res) => {
-      if (res.id) {
-        this.user = res;
+    authService.currentUser.subscribe((user) => {
+      if (user !== null) {
+        this.user = user;
       }
     });
   }
