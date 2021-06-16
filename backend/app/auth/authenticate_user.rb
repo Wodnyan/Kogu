@@ -15,14 +15,10 @@ class AuthenticateUser
 
   # verify user credentials
   def user
-    user = User.find_by(email: email).select(select)
+    user = User.find_by(email: email)
     return user if user && user.authenticate(password)
 
     # raise Authentication error if credentials are invalid
     raise(ExceptionHandler::AuthenticationError, Message.invalid_credentials)
-  end
-
-  def select
-    ['id', 'email', 'name', 'updated_at as updatedAt', 'created_at as createdAt']
   end
 end
