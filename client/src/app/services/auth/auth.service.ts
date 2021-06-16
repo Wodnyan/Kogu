@@ -5,8 +5,13 @@ import { map } from "rxjs/operators";
 import { API_ENDPOINT_URL } from "src/constants";
 import { User } from "src/types";
 
-type UserCredentials = {
+type RegisterUserCredentials = {
   name: string;
+  password: string;
+  email: string;
+};
+
+type LoginUserCredentials = {
   password: string;
   email: string;
 };
@@ -18,6 +23,7 @@ type AuthUser = User | null;
 })
 export class AuthService {
   private registerEndpoint = `${API_ENDPOINT_URL}/signup`;
+  private loginEndpoint = `${API_ENDPOINT_URL}/auth/login`;
   private meEndpoint = `${API_ENDPOINT_URL}/me`;
 
   private currentUserSubject: BehaviorSubject<AuthUser>;
@@ -28,8 +34,14 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  register(userCredentials: UserCredentials) {
+  register(userCredentials: RegisterUserCredentials) {
     return this.http.post(this.registerEndpoint, userCredentials, {
+      withCredentials: true,
+    });
+  }
+
+  login(userCredentials: LoginUserCredentials) {
+    return this.http.post(this.loginEndpoint, userCredentials, {
       withCredentials: true,
     });
   }
