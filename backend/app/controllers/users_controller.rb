@@ -30,7 +30,6 @@ class UsersController < ApplicationController
   end
 
   def select
-    # %w[id email name updated_at created_at]
     ['id', 'email', 'name',  'updated_at as updatedAt', 'created_at as createdAt']
   end
 
