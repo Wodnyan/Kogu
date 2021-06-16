@@ -8,11 +8,10 @@
   >
     {{ article?.title }}
   </a>
-  <p>
+  <p class="truncate">
     {{ article?.description }}
   </p>
   <div>
     {{ article?.createdAt | date }}
   </div>
-  <app-button>Open</app-button>
 </article>

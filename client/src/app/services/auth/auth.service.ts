@@ -1,12 +1,17 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
 import { API_ENDPOINT_URL } from "src/constants";
+import { User } from "src/types";
 
 type UserCredentials = {
   name: string;
   password: string;
   email: string;
 };
+
+type AuthUser = User | null;
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +20,13 @@ export class AuthService {
   private registerEndpoint = `${API_ENDPOINT_URL}/signup`;
   private meEndpoint = `${API_ENDPOINT_URL}/me`;
 
-  constructor(private http: HttpClient) {}
+  private currentUserSubject: BehaviorSubject<AuthUser>;
+  public currentUser: Observable<AuthUser>;
+
+  constructor(private http: HttpClient) {
+    this.currentUserSubject = new BehaviorSubject<AuthUser>(null);
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
 
   register(userCredentials: UserCredentials) {
     return this.http.post(this.registerEndpoint, userCredentials, {
@@ -25,16 +36,24 @@ export class AuthService {
 
   me() {
     const headers = new HttpHeaders().set("Authorization", this.bearerToken);
-    return this.http.get<{
-      id: number;
-      name: string;
-      email: string;
-      updatedAt: string;
-      createdAt: string;
-    }>(this.meEndpoint, {
-      withCredentials: true,
-      headers: headers,
-    });
+
+    return this.http
+      .get<{
+        id: number;
+        name: string;
+        email: string;
+        updatedAt: string;
+        createdAt: string;
+      }>(this.meEndpoint, {
+        withCredentials: true,
+        headers: headers,
+      })
+      .pipe(
+        map((user) => {
+          this.currentUserSubject.next(user);
+          return user;
+        }),
+      );
   }
 
   private get bearerToken() {

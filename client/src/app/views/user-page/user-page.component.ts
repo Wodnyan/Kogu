@@ -30,7 +30,6 @@ export class UserPageComponent implements OnInit {
           this.articles = res;
         });
       this.userService.fetchUser(this.userId).subscribe((res) => {
-        console.log(res);
         this.user = res;
       });
     }

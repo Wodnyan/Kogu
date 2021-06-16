@@ -1,10 +1,19 @@
 <app-nav-bar></app-nav-bar>
 <div class="mx-auto mt-4 max-w-screen-md">
-  <div class="user">
-    <h1>{{ article?.author?.name }}</h1>
-  </div>
+  <div class="p-4 mx-2 border border-gray-900 rounded">
+    <section class="user">
+      <div>
+        <span> written by </span>
+        <span>{{ article?.author?.name }}</span>
+      </div>
+    </section>
 
-  <h1>{{ article?.title }}</h1>
-  <h2>{{ article?.description }}</h2>
-  <p>{{ article?.text }}</p>
+    <section>
+      <h1 class="text-4xl">{{ article?.title }}</h1>
+
+      <h2 class="text-xl text-gray-400 mb-4">{{ article?.description }}</h2>
+
+      <p class="text-justify">{{ article?.text }}</p>
+    </section>
+  </div>
 </div>

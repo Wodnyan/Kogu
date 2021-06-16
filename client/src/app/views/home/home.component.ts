@@ -11,15 +11,16 @@ import { Article, User } from "src/types";
 export class HomeComponent implements OnInit {
   user: User | null = null;
   articles: Article[] | [] = [];
+
   constructor(
     private authService: AuthService,
     private articleService: ArticlesService,
   ) {}
 
   ngOnInit(): void {
-    this.authService.me().subscribe((resp) => {
-      if (resp["id"]) {
-        this.user = resp;
+    this.authService.currentUser.subscribe((user) => {
+      if (user !== null) {
+        this.user = user;
       }
     });
     this.articleService.fetchAllArticles().subscribe((resp) => {
