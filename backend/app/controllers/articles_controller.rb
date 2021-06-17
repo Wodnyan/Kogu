@@ -50,8 +50,13 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article.destroy
-    head :no_content
+    # Check if article belongs to user
+    if @article && (current_user[:id] != @article[:user_id])
+      raise(ExceptionHandler::AuthenticationError, Message.unauthorized)
+    else
+      @article.destroy if @article
+      head :no_content
+    end
   end
 
   private
