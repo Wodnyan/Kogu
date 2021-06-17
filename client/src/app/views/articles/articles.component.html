@@ -1,13 +1,36 @@
 <app-nav-bar></app-nav-bar>
+<div
+  class="delete-prompt bg-gray-500 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 rounded"
+  *ngIf="showDeletePrompt"
+>
+  <h1 class="text-2xl text-white mb-1">Are you sure?</h1>
+  <button (click)="deleteArticle()" class="btn btn--full mb-1">Delete</button>
+  <button (click)="toggleShowDeletePrompt()" class="btn btn--full">
+    Cancel
+  </button>
+</div>
 <div class="mx-auto mt-4 max-w-screen-md">
   <div class="p-4 mx-2 border border-gray-900 rounded">
-    <section class="user">
+    <section class="flex justify-between">
       <div>
         <span> written by </span>
         <span>{{ article?.author?.name }}</span>
       </div>
+      <!-- Open popup for options -->
+      <div *ngIf="isOwner" class="relative">
+        <button (click)="toggleShowOptions()" class="btn">Options</button>
+        <ul
+          class="absolute top-full mt-1 right-0 bg-blue-800 max-w-xs w-screen"
+          *ngIf="showOptions"
+        >
+          <li>
+            <button class="btn btn--full" (click)="toggleShowDeletePrompt()">
+              Delete
+            </button>
+          </li>
+        </ul>
+      </div>
     </section>
-
     <section>
       <h1 class="text-4xl">{{ article?.title }}</h1>
 

@@ -16,12 +16,11 @@ export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   fetchAllArticlesOfUser(userId: number) {
-    const headers = new HttpHeaders().set("Authorization", this.bearerToken);
     return this.http.get<Article[] | []>(
       `${API_ENDPOINT_URL}/users/${userId}/articles`,
       {
         withCredentials: true,
-        headers,
+        headers: this.headers,
       },
     );
   }
@@ -35,13 +34,22 @@ export class ArticlesService {
   }
 
   createArticle(article: CreateArticlePayload) {
-    const headers = new HttpHeaders().set("Authorization", this.bearerToken);
     return this.http.post<Article>(`${API_ENDPOINT_URL}/articles`, article, {
-      headers,
+      headers: this.headers,
+    });
+  }
+
+  deleteArticle(articleId: number) {
+    return this.http.delete<any>(`${API_ENDPOINT_URL}/articles/${articleId}`, {
+      headers: this.headers,
     });
   }
 
   private get bearerToken() {
     return `Bearer ${localStorage.getItem("accessToken")}`;
+  }
+
+  private get headers() {
+    return new HttpHeaders().set("Authorization", this.bearerToken);
   }
 }
