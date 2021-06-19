@@ -20,13 +20,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.userCreds.value);
     this.authService.register(this.userCreds.value).subscribe((data: any) => {
-      console.log(data);
       const accessToken = data["auth_token"];
-      localStorage.setItem("accessToken", accessToken);
       if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
         this.router.navigate(["/"]);
+        this.authService.me().subscribe();
       }
     });
   }

@@ -19,11 +19,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    console.log(this.userCreds.value);
     this.authService.login(this.userCreds.value).subscribe((data: any) => {
       const accessToken = data["auth_token"];
-      localStorage.setItem("accessToken", accessToken);
       if (accessToken) {
+        localStorage.setItem("accessToken", accessToken);
+        this.authService.me().subscribe();
         this.router.navigate(["/"]);
       }
     });
