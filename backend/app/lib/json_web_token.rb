@@ -13,4 +13,14 @@ class JsonWebToken
   rescue JWT::DecodeError => e
     raise ExceptionHandler::InvalidToken, e.message
   end
+
+  def self.blacklist(token)
+    BlacklistedToken.create({ token: token })
+  end
+
+  def self.is_blacklisted(token)
+    blacklisted = BlacklistedToken.where('token = ?', token).first
+
+    !blacklisted.nil?
+  end
 end
