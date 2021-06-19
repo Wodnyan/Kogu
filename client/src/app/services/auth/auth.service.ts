@@ -47,8 +47,6 @@ export class AuthService {
   }
 
   me() {
-    const headers = new HttpHeaders().set("Authorization", this.bearerToken);
-
     return this.http
       .get<{
         id: number;
@@ -58,7 +56,7 @@ export class AuthService {
         createdAt: string;
       }>(this.meEndpoint, {
         withCredentials: true,
-        headers: headers,
+        headers: this.headers,
       })
       .pipe(
         map((user) => {
@@ -66,6 +64,21 @@ export class AuthService {
           return user;
         }),
       );
+  }
+
+  logout() {
+    return this.http.post(
+      `${API_ENDPOINT_URL}/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+        headers: this.headers,
+      },
+    );
+  }
+
+  private get headers() {
+    return new HttpHeaders().set("Authorization", this.bearerToken);
   }
 
   private get bearerToken() {

@@ -15,11 +15,8 @@
       >
         Create Article
       </button>
-      <a
-        class="ml-2 px-3 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white"
-        [routerLink]="userPath"
-        >My Account</a
-      >
+      <a class="btn inline-block mr-1" [routerLink]="userPath">My Account</a>
+      <button class="btn" (click)="logout()">Logout</button>
       <app-create-article-popup
         *ngIf="showCreateArticlePopup"
         (closePopupEvent)="toggleShowCreateArticlePopup()"
@@ -35,15 +32,7 @@
           >Log in</a
         >
         <a
-          class="
-            ml-2
-            px-3
-            py-2
-            rounded
-            bg-blue-700
-            hover:bg-blue-800
-            text-white
-          "
+          class="ml-2 px-3 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white"
           routerLink="/auth/register"
           >Create account</a
         >
