@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
   before_action :set_article, only: %i[update destroy show]
 
   # TODO: PAGINATION, ORDERING
-
   def index
     articles = Article.joins(:user).order('articles.id DESC').select(select)
     mapped_articles = []

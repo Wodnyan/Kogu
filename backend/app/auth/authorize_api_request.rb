@@ -21,7 +21,12 @@ class AuthorizeApiRequest
   end
 
   def decoded_auth_token
-    @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    is_blacklisted = JsonWebToken.is_blacklisted http_auth_header
+    if is_blacklisted
+      raise(ExceptionHandler::AuthenticationError, Message.unauthorized)
+    else
+      @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    end
   end
 
   def http_auth_header

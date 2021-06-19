@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "src/app/services/auth/auth.service";
 import { Article, User } from "src/types";
 
@@ -12,15 +13,15 @@ export class NavBarComponent implements OnInit {
   user?: User;
   showCreateArticlePopup = false;
 
-  constructor(authService: AuthService) {
-    authService.currentUser.subscribe((user) => {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.currentUser.subscribe((user) => {
       if (user !== null) {
         this.user = user;
       }
     });
   }
-
-  ngOnInit(): void {}
 
   get userPath() {
     return `/users/${this.user?.id}`;
@@ -32,5 +33,12 @@ export class NavBarComponent implements OnInit {
 
   toggleShowCreateArticlePopup() {
     this.showCreateArticlePopup = !this.showCreateArticlePopup;
+  }
+
+  logout() {
+    this.authService.logout().subscribe(() => {
+      this.router.navigate(["/"]);
+      window.location.reload();
+    });
   }
 }
