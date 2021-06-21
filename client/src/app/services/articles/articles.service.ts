@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { API_ENDPOINT_URL } from "src/constants";
 import { Article } from "src/types";
@@ -25,8 +25,14 @@ export class ArticlesService {
     );
   }
 
-  fetchAllArticles() {
-    return this.http.get<Array<Article>>(`${API_ENDPOINT_URL}/articles`);
+  fetchAllArticles(page?: number) {
+    return this.http.get<Array<Article>>(`${API_ENDPOINT_URL}/articles`, {
+      params: new HttpParams({
+        fromObject: {
+          page: page || "",
+        },
+      }),
+    });
   }
 
   fetchOneArticle(articleId: number) {

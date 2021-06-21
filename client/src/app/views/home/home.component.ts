@@ -11,6 +11,8 @@ import { Article, User } from "src/types";
 export class HomeComponent implements OnInit {
   user: User | null = null;
   articles: Article[] | [] = [];
+  showLoadMoreBtn = false;
+  page = 0;
 
   constructor(
     private authService: AuthService,
@@ -23,8 +25,9 @@ export class HomeComponent implements OnInit {
         this.user = user;
       }
     });
-    this.articleService.fetchAllArticles().subscribe((resp) => {
+    this.articleService.fetchAllArticles(this.page).subscribe((resp) => {
       this.articles = resp;
+      this.showLoadMoreBtn = true;
     });
   }
 
@@ -34,5 +37,16 @@ export class HomeComponent implements OnInit {
 
   isAuthenticated() {
     return Boolean(this.user?.id);
+  }
+
+  loadMoreArticles() {
+    this.page += 1;
+    this.articleService.fetchAllArticles(this.page).subscribe((res) => {
+      if (res.length < 1) {
+        this.showLoadMoreBtn = false;
+      } else {
+        this.articles = [...this.articles, ...res];
+      }
+    });
   }
 }
