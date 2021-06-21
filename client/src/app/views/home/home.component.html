@@ -1,6 +1,6 @@
 <app-nav-bar (newArticleEvent)="prependArticle($event)"></app-nav-bar>
 
-<h1 class="text-4xl text-center">
+<h1 class="text-4xl text-center my-2">
   <div *ngIf="isAuthenticated(); else unAuthenticated">
     <span class="text-gray-700"> Welcome </span>
     <span>{{ user?.name | uppercase }}</span>
@@ -8,20 +8,17 @@
   <ng-template #unAuthenticated>Welcome to Kogu</ng-template>
 </h1>
 
-<main>
-  <ul
-    class="
-      max-w-screen-xl
-      mx-auto
-      grid grid-cols-1
-      md:grid-cols-2
-      lg:grid-cols-3
-      px-2
-      gap-2
-    "
-  >
+<main class="max-w-screen-xl mx-auto px-2 gap-2">
+  <ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
     <li *ngFor="let article of articles" class="mb-4">
       <app-article-card [article]="article"></app-article-card>
     </li>
   </ul>
+  <button
+    *ngIf="showLoadMoreBtn"
+    (click)="loadMoreArticles()"
+    class="btn btn--full mb-4 text-2xl"
+  >
+    Load More
+  </button>
 </main>
