@@ -12,6 +12,9 @@
         class="form-input px-2 py-2 rounded w-full block"
         formControlName="email"
       />
+      <p class="text-red-500">
+        {{ errors.email }}
+      </p>
     </div>
     <div>
       <label for="password">Password</label>
@@ -21,6 +24,9 @@
         class="form-input px-2 py-2 rounded w-full block"
         formControlName="password"
       />
+      <p class="text-red-500">
+        {{ errors.password }}
+      </p>
     </div>
     <div class="mt-2 flex items-center justify-between">
       <app-button>Log in</app-button>
@@ -28,7 +34,7 @@
     </div>
   </form>
 
-  <div class="text-xl">
+  <div class="text-xl mt-4">
     <span class="mr-1">Don't have an account?</span>
     <a routerLink="/auth/register" class="text-blue-500">Sign up!</a>
   </div>

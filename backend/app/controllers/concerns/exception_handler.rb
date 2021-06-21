@@ -8,11 +8,14 @@ module ExceptionHandler
 
   class InvalidToken < StandardError; end
 
+  class BadRequest < StandardError; end
+
   included do
     rescue_from ActiveRecord::RecordInvalid, with: :four_twenty_four
     rescue_from ExceptionHandler::AuthenticationError, with: :unauthorized_request
     rescue_from ExceptionHandler::InvalidToken, with: :four_twenty_four
     rescue_from ExceptionHandler::MissingToken, with: :four_twenty_four
+    rescue_from ExceptionHandler::BadRequest, with: :bad_request
 
     rescue_from ActiveRecord::RecordNotFound do |e|
       json_response({ message: e.message }, :not_found)
@@ -20,6 +23,10 @@ module ExceptionHandler
   end
 
   private
+
+  def bad_request(e)
+    json_response({ message: e.message }, :bad_request)
+  end
 
   def four_twenty_four(e)
     json_response({ message: e.message }, :unprocessable_entity)

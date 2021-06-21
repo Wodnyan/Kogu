@@ -13,19 +13,34 @@ export class LoginComponent implements OnInit {
     email: new FormControl(""),
     password: new FormControl(""),
   });
+  errors = {
+    email: null,
+    password: null,
+  };
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
 
   onSubmit() {
-    this.authService.login(this.userCreds.value).subscribe((data: any) => {
-      const accessToken = data["auth_token"];
-      if (accessToken) {
-        localStorage.setItem("accessToken", accessToken);
+    this.errors = {
+      email: null,
+      password: null,
+    };
+    this.authService.login(this.userCreds.value).subscribe(
+      (data: any) => {
+        localStorage.setItem("accessToken", data["auth_token"]);
         this.authService.me().subscribe();
         this.router.navigate(["/"]);
-      }
-    });
+      },
+      (err) => {
+        const errors = JSON.parse(err.error.message);
+        console.log(errors.email);
+        this.errors = {
+          email: errors.email || null,
+          password: errors.password || null,
+        };
+      },
+    );
   }
 }
