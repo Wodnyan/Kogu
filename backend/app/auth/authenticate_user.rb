@@ -19,7 +19,7 @@ class AuthenticateUser
     if !user
       raise ExceptionHandler::AuthenticationError.new({ email: 'No email found' })
     elsif !user.authenticate(password)
-      raise ExceptionHandler::AuthenticationError.new({ email: 'No email found' })
+      raise ExceptionHandler::AuthenticationError.new({ password: 'Incorrect password' })
     else
       user
     end
