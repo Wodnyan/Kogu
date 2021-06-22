@@ -12,6 +12,9 @@
         class="form-input px-2 py-2 w-full rounded block"
         formControlName="name"
       />
+      <p class="text-red-500">
+        {{ errors.name }}
+      </p>
     </div>
     <div>
       <label for="email">Email</label>
@@ -21,6 +24,9 @@
         class="form-input px-2 py-2 rounded w-full block"
         formControlName="email"
       />
+      <p class="text-red-500">
+        {{ errors.email }}
+      </p>
     </div>
     <div>
       <label for="password">Password</label>
@@ -30,6 +36,9 @@
         class="form-input px-2 py-2 rounded w-full block"
         formControlName="password"
       />
+      <p class="text-red-500">
+        {{ errors.password }}
+      </p>
     </div>
     <div class="mt-2 flex items-center justify-between">
       <app-button>Sign up</app-button>

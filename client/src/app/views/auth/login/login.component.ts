@@ -34,11 +34,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["/"]);
       },
       (err) => {
-        const errors = JSON.parse(err.error.message);
-        console.log(errors.email);
+        console.log(err.error);
         this.errors = {
-          email: errors.email || null,
-          password: errors.password || null,
+          email: err.error.email || null,
+          password: err.error.password || null,
         };
       },
     );
