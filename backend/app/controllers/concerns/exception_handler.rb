@@ -2,7 +2,15 @@ module ExceptionHandler
   # provides the more graceful `included` method
   extend ActiveSupport::Concern
 
-  class AuthenticationError < StandardError; end
+  class AuthenticationError < StandardError
+    attr_reader :data
+
+    def initialize(data)
+      super
+      message = 'AuthenticationError'
+      @data = data
+    end
+  end
 
   class MissingToken < StandardError; end
 

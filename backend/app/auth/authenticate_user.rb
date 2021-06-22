@@ -17,9 +17,9 @@ class AuthenticateUser
   def user
     user = User.find_by(email: email)
     if !user
-      raise(ExceptionHandler::AuthenticationError, { email: 'Incorrect email' }.to_json)
+      raise ExceptionHandler::AuthenticationError.new({ email: 'No email found' })
     elsif !user.authenticate(password)
-      raise(ExceptionHandler::BadRequest, { password: 'Incorrect password' }.to_json)
+      raise ExceptionHandler::AuthenticationError.new({ email: 'No email found' })
     else
       user
     end
