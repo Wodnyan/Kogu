@@ -3,5 +3,8 @@ class User < ApplicationRecord
 
   has_many :articles, dependent: :destroy
 
-  validates_presence_of :name, :email, :password_digest
+  # validates_presence_of :name, :email, :password_digest
+  validates :name, presence: true
+  validates :email, presence: true
+  validates :password_digest, presence: true
 end

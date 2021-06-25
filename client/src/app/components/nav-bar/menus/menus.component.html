@@ -1,0 +1,54 @@
+<app-create-article-popup
+  *ngIf="showCreateArticlePopup"
+  (closePopupEvent)="toggleShowCreateArticlePopup()"
+  (newArticleEvent)="newArticle($event)"
+></app-create-article-popup>
+<div class="container">
+  <nav
+    *ngIf="user?.id; else unauthenticated"
+    class="nav"
+    [ngClass]="showMobileMenu ? 'nav--active' : ''"
+  >
+    <ul class="nav__list">
+      <li class="nav__list--item">
+        <button (click)="toggleShowCreateArticlePopup()" class="btn">
+          Create Article
+        </button>
+      </li>
+      <li class="nav__list--item">
+        <a class="btn" [routerLink]="userPath">My Account</a>
+      </li>
+      <li class="nav__list--item">
+        <button class="btn" (click)="logout()">Logout</button>
+      </li>
+    </ul>
+  </nav>
+  <button
+    (click)="toggleShowMobileMenu()"
+    class="burger relative z-50 md:hidden"
+  >
+    Toggle
+  </button>
+  <!-- UNAUTHENTICATED USER -->
+  <ng-template #unauthenticated>
+    <nav class="nav" [ngClass]="showMobileMenu ? 'nav--active' : ''">
+      <ul class="nav__list">
+        <li class="nav__list--item">
+          <a class="btn" href="/auth/login">Log in</a>
+        </li>
+        <li class="nav__list--item">
+          <a class="btn" routerLink="/auth/register">Create account</a>
+        </li>
+        <li class="nav__list--item md:hidden">
+          <button class="btn">close</button>
+        </li>
+      </ul>
+    </nav>
+    <button
+      (click)="toggleShowMobileMenu()"
+      class="burger relative z-50 md:hidden"
+    >
+      Toggle
+    </button>
+  </ng-template>
+</div>

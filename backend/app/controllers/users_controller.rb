@@ -8,10 +8,33 @@ class UsersController < ApplicationController
 
   # Sign up
   def signup
-    user = User.create!(user_params)
-    auth_token = AuthenticateUser.new(user.email, user.password).call
-    response = { message: Message.account_created, auth_token: auth_token }
-    json_response(response, :created)
+    user = User.create(user_params)
+    user_errors = user.errors.full_messages
+
+    error_obj = {}
+
+    # Remove password digest validation message
+    # and populate error_obj
+    user_errors.each_with_index do |error, index|
+      if error.downcase.include?('password digest')
+        user_errors.delete_at(index)
+      elsif error.downcase.include?('password')
+        error_obj['password'] = error
+      elsif error.downcase.include?('email')
+        error_obj['email'] = error
+      elsif error.downcase.include?('name')
+        error_obj['name'] = error
+      end
+    end
+
+    if !error_obj.empty?
+      response = { message: 'Bad Request', errors: user_errors }
+      json_response(error_obj, :bad_request)
+    else
+      auth_token = JsonWebToken.encode(user_id: user.id) if user
+      response = { message: Message.account_created, auth_token: auth_token }
+      json_response(response, :created)
+    end
   end
 
   def me

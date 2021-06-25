@@ -14,6 +14,7 @@ import { ArticlesComponent } from './views/articles/articles.component';
 import { UserPageComponent } from './views/user-page/user-page.component';
 import { CreateArticlePopupComponent } from './components/create-article-popup/create-article-popup.component';
 import { LoginComponent } from './views/auth/login/login.component';
+import { MenusComponent } from './components/nav-bar/menus/menus.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LoginComponent } from './views/auth/login/login.component';
     UserPageComponent,
     CreateArticlePopupComponent,
     LoginComponent,
+    MenusComponent,
   ],
   imports: [
     BrowserModule,

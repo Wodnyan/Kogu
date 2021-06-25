@@ -1,0 +1,15 @@
+.nav {
+  @apply fixed inset-0 w-screen h-screen transform translate-x-full transition-all bg-blue-900 md:bg-transparent md:static md:w-auto md:h-auto md:translate-x-0 md:transition-none;
+  &--active {
+    @apply translate-x-0;
+  }
+  &__list {
+    @apply flex justify-center items-center h-full flex-col md:flex-row;
+    &--item {
+      @apply mb-2 md:mb-0 md:ml-2;
+      & > * {
+        @apply inline-block;
+      }
+    }
+  }
+}
