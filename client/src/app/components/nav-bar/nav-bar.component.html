@@ -1,42 +1,11 @@
 <header class="flex items-center px-4 py-2 shadow-md">
   <div class="flex items-center">
     <a class="mr-4" routerLink="/">KOGU</a>
-    <form>
+    <form class="hidden md:block">
       <input placeholder="search for blogs..." class="text-black" type="text" />
     </form>
   </div>
-
   <div class="ml-auto">
-    <!-- AUTHENTICATED USER -->
-    <div *ngIf="user?.id; else unauthenticated">
-      <button
-        (click)="toggleShowCreateArticlePopup()"
-        class="hover:bg-gray-100 text-blue-700 px-3 py-2 rounded"
-      >
-        Create Article
-      </button>
-      <a class="btn inline-block mr-1" [routerLink]="userPath">My Account</a>
-      <button class="btn" (click)="logout()">Logout</button>
-      <app-create-article-popup
-        *ngIf="showCreateArticlePopup"
-        (closePopupEvent)="toggleShowCreateArticlePopup()"
-        (newArticleEvent)="newArticle($event)"
-      ></app-create-article-popup>
-    </div>
-    <!-- UNAUTHENTICATED USER -->
-    <ng-template #unauthenticated>
-      <div>
-        <a
-          class="hover:bg-gray-100 text-blue-700 px-3 py-2 rounded"
-          href="/auth/login"
-          >Log in</a
-        >
-        <a
-          class="ml-2 px-3 py-2 rounded bg-blue-700 hover:bg-blue-800 text-white"
-          routerLink="/auth/register"
-          >Create account</a
-        >
-      </div>
-    </ng-template>
+    <app-menus></app-menus>
   </div>
 </header>
