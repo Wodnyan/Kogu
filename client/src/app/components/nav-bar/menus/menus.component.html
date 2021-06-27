@@ -3,6 +3,14 @@
   (closePopupEvent)="toggleShowCreateArticlePopup()"
   (newArticleEvent)="newArticle($event)"
 ></app-create-article-popup>
+
+<button
+  *ngIf="user?.id"
+  (click)="toggleShowMobileMenu()"
+  class="burger relative z-50 md:hidden"
+>
+  Toggle
+</button>
 <div class="container">
   <nav
     *ngIf="user?.id; else unauthenticated"
@@ -23,12 +31,6 @@
       </li>
     </ul>
   </nav>
-  <button
-    (click)="toggleShowMobileMenu()"
-    class="burger relative z-50 md:hidden"
-  >
-    Toggle
-  </button>
   <!-- UNAUTHENTICATED USER -->
   <ng-template #unauthenticated>
     <nav class="nav" [ngClass]="showMobileMenu ? 'nav--active' : ''">
@@ -38,9 +40,6 @@
         </li>
         <li class="nav__list--item">
           <a class="btn" routerLink="/auth/register">Create account</a>
-        </li>
-        <li class="nav__list--item md:hidden">
-          <button class="btn">close</button>
         </li>
       </ul>
     </nav>

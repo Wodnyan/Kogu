@@ -14,5 +14,12 @@
         <app-article-card [article]="article"></app-article-card>
       </li>
     </ul>
+    <button
+      *ngIf="showLoadMoreBtn"
+      (click)="loadMoreArticles()"
+      class="btn btn--full text-2xl"
+    >
+      Load more
+    </button>
   </main>
 </div>
