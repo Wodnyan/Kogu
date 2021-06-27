@@ -1,21 +1,9 @@
 <div
-  class="
-    p-4
-    fixed
-    top-1/2
-    left-1/2
-    transform
-    -translate-x-1/2 -translate-y-1/2
-    max-w-screen-md
-    w-full
-    border-gray-400 border-2 border-opacity-50
-    bg-white
-    text-4xl
-  "
+  class="p-4 fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-screen h-screen border-gray-400 border-2 border-opacity-50 bg-white text-4xl z-100 md:max-w-screen-md md:h-auto"
 >
-  <div>
+  <div class="flex items-center mb-4">
     <h1 class="text-4xl">Create new article</h1>
-    <button (click)="closePopup()">X</button>
+    <button class="ml-auto" (click)="closePopup()">X</button>
   </div>
   <form [formGroup]="article" (ngSubmit)="onSubmit()">
     <div>

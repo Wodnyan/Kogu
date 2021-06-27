@@ -28,6 +28,9 @@ export class HomeComponent implements OnInit {
     this.articleService.fetchAllArticles(this.page).subscribe((resp) => {
       this.articles = resp;
       this.showLoadMoreBtn = true;
+      if (resp.length < 25) {
+        this.showLoadMoreBtn = false;
+      }
     });
   }
 
@@ -40,8 +43,9 @@ export class HomeComponent implements OnInit {
   }
 
   loadMoreArticles() {
-    this.page += 1;
-    this.articleService.fetchAllArticles(this.page).subscribe((res) => {
+    const nextPage = this.page + 1;
+    this.articleService.fetchAllArticles(nextPage).subscribe((res) => {
+      this.page += 1;
       if (res.length < 1) {
         this.showLoadMoreBtn = false;
       } else {
