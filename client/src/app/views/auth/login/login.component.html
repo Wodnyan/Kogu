@@ -1,9 +1,10 @@
-<main
-  [formGroup]="userCreds"
-  class="h-full flex items-center justify-center flex-col"
->
+<main class="h-full flex items-center justify-center flex-col">
   <h1 class="text-4xl">Log In!</h1>
-  <form (submit)="onSubmit()" class="w-full md:w-1/2 lg:w-2/6 px-4">
+  <form
+    [formGroup]="userCreds"
+    (submit)="onSubmit()"
+    class="w-full md:w-1/2 lg:w-2/6 px-4"
+  >
     <div>
       <label for="email">Email</label>
       <input
