@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl(""),
     password: new FormControl(""),
   });
+
   errors = {
     email: null,
     password: null,
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
       email: null,
       password: null,
     };
+    console.log(this.userCreds.value);
     this.authService.login(this.userCreds.value).subscribe(
       (data: any) => {
         localStorage.setItem("accessToken", data["auth_token"]);
