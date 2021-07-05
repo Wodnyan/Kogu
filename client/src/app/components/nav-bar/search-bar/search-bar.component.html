@@ -1,0 +1,31 @@
+<form class="block relative">
+  <input
+    name="search"
+    [(ngModel)]="search"
+    placeholder="search for blogs..."
+    class="text-black"
+    type="text"
+    autocomplete="off"
+    (focus)="onFocus($event)"
+    (ngModelChange)="onChange($event)"
+  />
+  <ul
+    *ngIf="isDropdownOpen"
+    class="absolute shadow bg-white w-full max-h-60 overflow-y-auto p-2"
+  >
+    <li *ngFor="let article of results">
+      <a
+        class="block hover:bg-gray-200 p-2"
+        [routerLink]="['/', 'articles', article.id]"
+      >
+        <span>
+          {{ article.title }}
+        </span>
+        <span>
+          written by
+          {{ article.author.name }}
+        </span>
+      </a>
+    </li>
+  </ul>
+</form>

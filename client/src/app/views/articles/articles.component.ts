@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, DoCheck, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ArticlesService } from "src/app/services/articles/articles.service";
 import { AuthService } from "src/app/services/auth/auth.service";
@@ -9,8 +9,8 @@ import { Article } from "src/types";
   templateUrl: "./articles.component.html",
   styleUrls: ["./articles.component.scss"],
 })
-export class ArticlesComponent implements OnInit {
-  public articleId: number;
+export class ArticlesComponent implements OnInit, DoCheck {
+  public articleId?: number;
   public article?: Article;
 
   public userId?: number;
@@ -19,19 +19,34 @@ export class ArticlesComponent implements OnInit {
   public showDeletePrompt = false;
 
   constructor(
-    activeRoute: ActivatedRoute,
     authService: AuthService,
-    private articlesService: ArticlesService,
     private router: Router,
+    private articlesService: ArticlesService,
+    private activeRouter: ActivatedRoute,
   ) {
-    this.articleId = activeRoute.snapshot.params.articleId;
     authService.currentUser.subscribe((user) => (this.userId = user?.id));
+    this.activeRouter.params.subscribe((params) => {
+      this.articleId = params.articleId;
+    });
+  }
+
+  ngDoCheck(): void {
+    // Fetch new article if article ids don't match
+    if (Number(this.articleId) !== Number(this.article?.id)) {
+      this.articlesService
+        .fetchOneArticle(this.articleId || 0)
+        .subscribe((res) => {
+          this.article = res;
+        });
+    }
   }
 
   ngOnInit(): void {
-    this.articlesService.fetchOneArticle(this.articleId).subscribe((res) => {
-      this.article = res;
-    });
+    this.articlesService
+      .fetchOneArticle(this.articleId || 0)
+      .subscribe((res) => {
+        this.article = res;
+      });
   }
 
   public get isOwner() {

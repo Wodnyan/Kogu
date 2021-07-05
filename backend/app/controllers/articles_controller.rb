@@ -4,7 +4,11 @@ class ArticlesController < ApplicationController
 
   def index
     page = request.query_parameters[:page] || 0
-    articles = Article.joins(:user).order('articles.id DESC').select(select).limit(25).offset(page.to_i * 25)
+    searchTitle = request.query_parameters[:search]
+
+    articles = Article.joins(:user).where('articles.title LIKE ?',
+                                          "#{searchTitle}%").order('articles.id DESC').select(select).limit(25).offset(page.to_i * 25)
+
     mapped_articles = []
 
     articles.each do |article|

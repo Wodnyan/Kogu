@@ -15,6 +15,17 @@ type CreateArticlePayload = {
 export class ArticlesService {
   constructor(private http: HttpClient) {}
 
+  searchArticleByTitle(title: string, page: number | undefined = 0) {
+    return this.http.get<Article[] | []>(`${API_ENDPOINT_URL}/articles`, {
+      params: new HttpParams({
+        fromObject: {
+          page: page || 0,
+          search: title,
+        },
+      }),
+    });
+  }
+
   fetchAllArticlesOfUser(userId: number, page: number) {
     return this.http.get<Article[] | []>(
       `${API_ENDPOINT_URL}/users/${userId}/articles`,
